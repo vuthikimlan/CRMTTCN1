@@ -1,0 +1,96 @@
+.ant-layout{
+    background-color: #EBFBF6;
+}
+.abc{
+    max-height: 100vh;
+}
+.sider{
+    overflow: auto;
+    position: relative;
+    height: 100vh;
+    position: fixed;
+    left: 0;
+    top: 0;
+    bottom: 0;
+}
+.logo1{
+    height: 32px;
+    margin: 25px 16px;
+    
+}
+.logo1_img{
+    width: 210px;
+    height: 110px;
+    position: absolute;
+    top: -15px;
+    left: -10px;
+}
+:where(.css-dev-only-do-not-override-1me4733).ant-menu-light .ant-menu-item-selected {
+    background-color:#5932EA;
+    color: #ffff;
+}
+
+.site_layout{
+    margin-left: 200px;
+    /* background-color: #EBFBF6; */
+}
+.header{
+    padding: 0; /*10px*/
+    background-color: #EBFBF6;
+    position: relative;
+
+}
+.header_items{
+    display: flex;
+    justify-content: space-between;
+}
+.header_items>p{
+    font-size:24px;
+    font-weight: 500;
+    margin: 0 20px 0  56px;
+    
+    
+}
+.btn{
+    display: flex;
+     margin: 15px 120px 0 0 ;
+}
+
+.input_search{
+    width: 250px;
+    height: 40px;
+    border: 1px solid transparent;
+    border-radius: 12px;
+}
+.icon_admin{
+    border: 1px solid transparent;
+    border-radius: 50px;
+    background-color: rgb(72, 138, 219);
+    padding: 10px;
+    height: 39px;
+    font-size: 17px;
+    margin: 0 10px;
+
+}
+.cout{
+    border: 1px solid transparent;
+    background-color: #fff;
+    border-radius: 20px ;
+    padding: 5px;
+    margin: 0 50px;
+}
+.content{
+    margin: 0 50px 10px;
+    overflow: initial;
+    background-color:#ffff;
+    border: 1px solid transparent;
+    border-radius: 30px;
+}
+
+.title_admin{
+    margin: 0;
+    font-weight: 500;
+    line-height: 40px;
+    font-size: 14px;
+}
+

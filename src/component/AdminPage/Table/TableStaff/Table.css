@@ -1,0 +1,41 @@
+.more_option{
+    border: none;
+    padding: 0;
+}
+.button_add_member{
+    background-color: #5932EA;
+    color: #fff;
+    border-radius: 10px;
+    
+}
+.button_add_member:hover{
+    background-color: #fff;
+}
+
+.filter{
+    border-color: #5932EA;
+    color: #5932EA;
+}
+
+.edit{
+    text-transform: uppercase;
+    display: flex;
+    position: absolute;
+    bottom: 15px;
+}
+.edit>p{
+    margin: 0;
+}
+.button_edit{
+    border: none;
+    text-transform: uppercase;
+    background-color: transparent;
+    color: #979797;
+    box-shadow: none;
+}
+
+.detailRoleUser{
+    border: none;
+    background-color: #fff;
+    box-shadow: none;
+}
