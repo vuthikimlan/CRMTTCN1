@@ -74,7 +74,7 @@ function CreateRole({openModal, onOpenChange}) {
                   />
                   <ProFormSwitch
                     name='status'
-                    label='kich hoat'
+                    label='Kích hoạt'
                     fieldProps={{
                       onChange: (checked) =>{
                         setSwitchValue(checked)

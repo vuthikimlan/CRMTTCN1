@@ -3,7 +3,7 @@ import { PageContainer } from '@ant-design/pro-components';
 import { Button, Drawer, Modal, Popover, Space, Table, Input } from 'antd';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { delUser, filterUser, getListUser } from '../../../../services/lead';
+import { delUser, filterUser, getListUser, delAllUser } from '../../../../services/lead';
 import AddStaff from './AddStaff';
 import './Table.css';
 import DetailStaff from './DetailStaff';
@@ -24,14 +24,12 @@ function TableContent(props) {
   
   const onSelectChange = (newSelectedRowKeys) => {
     setSelectedRowKeys(newSelectedRowKeys);
-    console.log('newSelectedRowKeys', newSelectedRowKeys);
+    // console.log('newSelectedRowKeys', newSelectedRowKeys);
   };
   const rowSelection = {
     selectedRowKeys,
     onChange: onSelectChange,
   };
-
-  console.log('selectedRowKeys',selectedRowKeys);
 
   
   // khi select sẽ hiện thị chọn bao nhiêu 
@@ -41,9 +39,7 @@ function TableContent(props) {
     confirm({
       title: 'Xoá khách hàng ',
       content: 'Việc này sẽ xóa khách hàng được chọn. Bạn có chắc chắn muốn xóa?',
-      onOk() {
-          // handleDeleteAll(selectedRowKeys)
-      },
+      onOk: handleDeleteAll ,
       onCancel() {
         console.log('Cancel');
       },
@@ -72,6 +68,19 @@ function TableContent(props) {
         handleGetStaff()
       }
     })
+  }
+
+  // Ham xoa nhieu nhan vien
+  const handleDeleteAll = () =>{
+    delAllUser( selectedRowKeys).then((res)=>{
+      if(res.data?.success === true) {
+        handleGetStaff();
+        setSelectedRowKeys([])
+      }
+    }).catch((error) => {
+      // Xử lý lỗi khi gọi API xóa khách hàng
+      console.error('Lỗi xóa khách hàng:', error);
+    });
   }
 
   // Hàm tìm kiếm thông tin khách hàng
@@ -103,7 +112,7 @@ function TableContent(props) {
     setLoading(false)
   },[])
 
-  console.log(dataStaff);
+  // console.log(dataStaff);
 
   //cột thông tin của bảng
   const columns = [
@@ -163,6 +172,7 @@ function TableContent(props) {
         </Space>
       ),
     },
+    
 
   ];
   return (
@@ -236,7 +246,7 @@ function TableContent(props) {
         
            <Drawer
           title="Thông tin chi tiết của nhân viên"
-          width={500}
+          width={600}
           open={openDrawer}
           onClose={onClose}
           extra={

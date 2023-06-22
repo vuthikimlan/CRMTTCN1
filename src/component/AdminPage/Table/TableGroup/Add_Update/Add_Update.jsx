@@ -2,14 +2,35 @@
 import {ProForm, 
     ProFormText, 
     ModalForm,
+    ProFormSelect,
     ProFormDigit
   } from '@ant-design/pro-components';
-import { createGroup, updateGroup } from '../../../../../services/lead';
+import { createGroup, getListUser, updateGroup } from '../../../../../services/lead';
 import { message } from 'antd';
+import { useEffect, useState } from 'react';
+
 
 
 
 function AddUpdateGroup({onSuccess, openModal, data, onOpenChange}) {
+  const [dataStaff, setDataStaff] = useState([])
+
+
+  const handleGetStaff = () =>{
+    getListUser().then((res) =>{
+      setDataStaff(res?.data?.data?.items)
+    })
+  }
+
+  const listStaff = {}
+  dataStaff.map((e) =>( 
+    listStaff[e.userId] = e.name
+  ))
+
+  useEffect(() =>{
+    handleGetStaff()
+    },[])
+
     //Ham tao khach hang
     const handleCreatGroup = (values) =>{
         createGroup(values).then((res) =>{
@@ -38,7 +59,6 @@ function AddUpdateGroup({onSuccess, openModal, data, onOpenChange}) {
 return (
 <>
   <ModalForm
-    // title='Thêm khách hàng mới '
     title={data?.customerGroupId ? 'Chỉnh sửa thông tin nhóm khách hàng' : 'Thêm nhóm khách hàng mới'}
     initialValues={data}
     modalProps={{
@@ -64,14 +84,21 @@ return (
       />  
       
 
-      <ProFormDigit 
+      {/* <ProFormDigit 
         width="md" 
-        // name="userId"
         name={data?.customerGroupId ? ["user", "userId"] : "userId"}
 
-        label="Mã người quản lý" 
-        placeholder="Mã người quản lý" 
+        label="Người quản lý nhóm" 
+        placeholder="Người quản lý nhóm" 
+      /> */}
+      <ProFormSelect
+        width="md"
+        valueEnum={listStaff}
+        name={data?.customerGroupId ? ["user", "userId"] : "userId"}
+        label="Người quản lý"
+        placeholder="Người quản lý"
       />
+
     </ProForm.Group>
    
   </ModalForm>

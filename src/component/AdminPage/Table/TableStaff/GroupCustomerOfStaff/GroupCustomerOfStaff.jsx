@@ -4,25 +4,24 @@ import { EditOutlined, DeleteOutlined } from '@ant-design/icons'
 import {  PageContainer } from '@ant-design/pro-components'
 import { useEffect,useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { delGroup, getAllGroup } from '../../../../services/lead';
-import AddUpdateGroup from './Add_Update/Add_Update';
+import { delGroup, groupCustomerOfStaff } from '../../../../../services/lead';
+import AddUpdateGroup from '../../TableGroup/Add_Update/Add_Update';
 
-
-
-function TableGroup(props) {
-
+function GroupCustomerOfStaff(props) {
+    const location = useLocation()
+    const navigate = useNavigate()
     const [openModal, setOpenModal] = useState()
     const [dataGroup, setDataGroup] = useState([])
     const [currentGroup, setCurrentGroup] = useState([])
     const [loading, setLoading] = useState(true);
+    const groupCustomer = location.pathname.split('/')
+    const id =  groupCustomer[groupCustomer.length - 1]
 
     // Hàm lấy tất cả các nhóm
-    const handleGetGroup = () =>{
+    const handleGetGroup = async (id) =>{
         setLoading(true)
-        getAllGroup().then((res) =>{
+        groupCustomerOfStaff(id).then((res) =>{
             setDataGroup(res.data?.data?.items)
-        }).finally(() =>{
-            setLoading(false)
         })
     }
 
@@ -38,9 +37,9 @@ function TableGroup(props) {
   
    //sử dụng để gửi yêu cầu API khi trang thay đổi
    useEffect(() =>{
-    handleGetGroup()
+    handleGetGroup(id)
     setLoading(false)
-    },[])
+    },[id])
 
   //cột thông tin của bảng
   const columns = [
@@ -124,10 +123,29 @@ function TableGroup(props) {
                dataSource={dataGroup}
               loading={loading}
         />
+
+          <Button 
+            style={{
+              marginRight: 20
+            }}
+            onClick={() =>{
+              navigate(`/adminpage/staff/`)
+            }}
+          >
+            Quay lại
+          </Button>
+          <Button 
+            onClick={() =>{
+              navigate(`/adminpage/customerofstaff/${id} `)
+
+            }}
+          >
+            Danh sách khách hàng
+          </Button>
         
       </PageContainer>
     </div>
   );
 }
 
-export default TableGroup;
+export default GroupCustomerOfStaff;

@@ -23,7 +23,7 @@ function DetailCustomer(data) {
   return(
     <>
         <Descriptions layout="vertical"  >     
-          <Descriptions.Item label="Id" span={2}>{dataCustomer?.customerId}</Descriptions.Item>
+          <Descriptions.Item label="Mã khách hàng" span={2}>{dataCustomer?.customerId}</Descriptions.Item>
           <Descriptions.Item label="Name"> {dataCustomer?.customerName} </Descriptions.Item>
           <Descriptions.Item label="Ngày tạo" span={2}> {dataCustomer?.createdDate} </Descriptions.Item>
           <Descriptions.Item label="Ngày cập nhật"> {dataCustomer?.updateDate} </Descriptions.Item>
@@ -32,7 +32,8 @@ function DetailCustomer(data) {
           <Descriptions.Item label="E-mail" span={2}> {dataCustomer?.email} </Descriptions.Item>
           <Descriptions.Item label="Trạng thái" span={3}> {dataCustomer?.status?.statusName} </Descriptions.Item>
           <Descriptions.Item label="Tên nhóm khách hàng" span={2}> {dataCustomer?.group?.groupName} </Descriptions.Item>
-          <Descriptions.Item label="Người quản lý" span={3}> {dataCustomer?.group?.user?.userName} </Descriptions.Item>
+          <Descriptions.Item label="Nhân viên quản lý" span={3}> {dataCustomer?.user?.name} </Descriptions.Item>
+          <Descriptions.Item label="Người quản lý nhóm khách hàng" span={3}> {dataCustomer?.group?.user?.name} </Descriptions.Item>
           <Descriptions.Item label="Ghi Chú" span={3}> {dataCustomer?.note} </Descriptions.Item>
         </Descriptions>
     </>

@@ -1,5 +1,5 @@
 /* eslint-disable no-lone-blocks */
-import { ModalForm, ProFormDatePicker, ProFormDigit, ProFormSelect } from '@ant-design/pro-components';
+import { ModalForm, ProFormDatePicker, ProFormDigit, ProFormSelect, ProFormSwitch } from '@ant-design/pro-components';
 import {ProForm, 
         ProFormText, 
       } from '@ant-design/pro-components';
@@ -10,9 +10,10 @@ import { useState, useEffect } from 'react';
 
 
 
+
 function AddStaff({onSuccess, openModal, data, onOpenChange}) {
   const [dataRole, setDataRole] = useState([])
-
+  const [switchValue, setSwitchValue] = useState(false)
   
   const handleGetStaff = () =>{
     getAllRole().then((res) =>{
@@ -50,14 +51,14 @@ function AddStaff({onSuccess, openModal, data, onOpenChange}) {
 
   const handleUpdateStaff = (values) =>{
     updateUser(data.userId, values).then((res) =>{
-      if(res.status === 200 ){
+      if(res.data.success === true ){
         message.success('Cập nhật thành công')
         onSuccess();
+      }else if (res.data.error.code === 2) {
+        {
+          res.data.error.errorDetailList.map((e) => message.error(e.message));
+        }
       }
-    }).catch((err) =>{
-      // message.error('cập nhật thất bại')
-      message.error(err.response.data?.error?.errorDetailList?.message)
-
     })
   }
   return (
@@ -117,16 +118,20 @@ function AddStaff({onSuccess, openModal, data, onOpenChange}) {
             label="Địa chỉ" 
             placeholder="Địa chỉ" 
           />
-          <ProFormDigit 
+          {/* <ProFormSelect 
+            width="md" 
+            name="isSuperAdmin" 
+            valueEnum={{
+              0: "Có",
+              1: "Không",
+              
+            }}
+            label="Is Admin" 
+          /> */}
+          <ProFormDigit
             width="md" 
             name="isSuperAdmin" 
             label="Is Admin" 
-          />
-          <ProFormText 
-            width="md" 
-            name="password" 
-            label="Mật khẩu" 
-            placeholder="Mật khẩu" 
           />
           <ProFormSelect
             width="md" 
@@ -135,6 +140,24 @@ function AddStaff({onSuccess, openModal, data, onOpenChange}) {
             label="Mã vai trò" 
             placeholder="Mã vai trò" 
           />
+          
+          <ProFormText 
+            width="md" 
+            name="password" 
+            label="Mật khẩu" 
+            placeholder="Mật khẩu" 
+          />
+          {/* <ProFormSwitch
+            name='isSuperAdmin'
+            label='Is Admin'
+            fieldProps={{
+              onChange: (checked) =>{
+                setSwitchValue(checked)
+              }
+              
+            }} 
+          /> */}
+          
           
         </ProForm.Group>
        

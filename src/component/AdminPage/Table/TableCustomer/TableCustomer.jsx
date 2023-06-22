@@ -22,6 +22,8 @@ function TableContent(props) {
   const [dataCustomer, setDataCustomer] = useState([])
   const [currentCustomer, setCurrentCustomer] = useState({})
   const [searchData, setSearchData] = useState()
+  const { confirm } = Modal;
+
 
   const onSelectChange = (newSelectedRowKeys) => {
     setSelectedRowKeys(newSelectedRowKeys);
@@ -38,8 +40,15 @@ function TableContent(props) {
 
   // console.log(hasSelected);
 
-  const confirm = (selectedRowKeys) => {
-    handleDeleteAll(selectedRowKeys)
+  const showhowConfirm = () => {
+    confirm({
+      title: 'Xoá khách hàng ',
+      content: 'Việc này sẽ xóa khách hàng được chọn. Bạn có chắc chắn muốn xóa?',
+      onOk: handleDeleteAll,
+      onCancel() {
+        console.log('Cancel');
+      },
+    });
   };
 
   const onClose = () =>{
@@ -70,12 +79,16 @@ function TableContent(props) {
   // khi select sẽ hiện thị chọn bao nhiêu 
   const hasSelected = selectedRowKeys.length > 0
   const handleDeleteAll = () =>{
-    delAllCustomer({ids: selectedRowKeys}).then((res)=>{
+    console.log("delete")
+    delAllCustomer( selectedRowKeys).then((res)=>{
       if(res.data?.success === true) {
         handleGetCustomer();
         setSelectedRowKeys([])
       }
-    })
+    }).catch((error) => {
+      // Xử lý lỗi khi gọi API xóa khách hàng
+      console.error('Lỗi xóa khách hàng:', error);
+    });
   }
   
   // Hàm tìm kiếm thông tin khách hàng
@@ -133,7 +146,7 @@ function TableContent(props) {
     },
     {
       title: 'Nhân viên quản lý',
-      dataIndex:['user', 'userName']
+      dataIndex:['user', 'name']
     },
     {
       title: 'Ngày tạo',
@@ -254,7 +267,7 @@ function TableContent(props) {
        {/* Hiển thị thông tin chi tiết của khách hàng */}
         <Drawer
           title="Thông tin chi tiết của khách hàng"
-          width={500}
+          width={550}
           open={openDrawer}
           onClose={onClose}
           extra={
@@ -278,24 +291,17 @@ function TableContent(props) {
 
         <div className='edit' style={{ display: hasSelected ? "block" : "none" }}> 
            <>đã chọn {selectedRowKeys.length}</>
-          <Popconfirm
-            title="Delete the task"
-            description="Are you sure to delete this task?"
-            onConfirm={confirm}
-            onCancel={(e) =>{
-              message.error('Đã Hủy')
-            }}
-            okText="Yes"
-            cancelText="No"
-          >
             <Button 
                className='button_edit'
+               onClick={() =>{
+                showhowConfirm();
+              }}
+              disabled={selectedRowKeys.length === 0}
             >
               <CloseOutlined />
               Xoá
             </Button>
             
-          </Popconfirm>
 
           
         </div> 

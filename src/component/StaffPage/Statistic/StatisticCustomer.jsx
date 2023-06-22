@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import {  statisticCustomerOfStaff, getCustomerStaffManager,getListGroupCustomerStaffManager, getListCustomerStaffManager } from '../../../services/lead';
 import { Pie } from '@ant-design/plots';
+import StatisticCustomerofStaff from './StatisticCustomerOfStaff';
+import { statisticCustomerOfStaff, getCustomerStaffManager, getListGroupCustomerStaffManager,getListCustomerStaffManager } from '../../../services/lead';
 
 
 function StatisticCustomerOfStaff () {
@@ -13,7 +14,9 @@ function StatisticCustomerOfStaff () {
     statisticCustomerOfStaff().then((res) =>{
       setData(res?.data?.data?.items)
     })
+    
   }
+  
 
   const handleGetCustomer = () =>{
     getListCustomerStaffManager().then((res) =>{
@@ -75,6 +78,9 @@ function StatisticCustomerOfStaff () {
           <Pie {...config} />;
         </div>
       </div>
+        <div>
+          <StatisticCustomerofStaff/>
+        </div>
     </>
   );
 };

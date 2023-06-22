@@ -39,8 +39,8 @@ export const delCustomer = (customerId)=>{
 }
 
 // Xóa tất cả các khách hàng 
-export const delAllCustomer = () =>{
-    return axios.delete('/customer/delete/all')
+export const delAllCustomer = (ids) =>{
+    return axios.delete('/customer/delete/all',{data :  ids} )
 }
 
 // Lọc thông tin khách hàng
@@ -88,8 +88,8 @@ export const delUser = (userId)=>{
 }
 
 // Xóa nhiều  người dùng 
-export const delAllUser = () =>{
-    return axios.delete('/user/delete/all')
+export const delAllUser = (ids) =>{
+    return axios.delete('/user/delete/all',{data :  ids} )
 }
 
 // Lọc thông tin người dùng
@@ -101,6 +101,14 @@ export const filterUser = (values) =>{
     }
     console.log('data', userValue);
     return axios.post('/user/filter', userValue)
+}
+
+export const customerOfStaff = (userId) =>{
+    return axios.get(`/user/manager/customers/${userId}`)
+}
+
+export const groupCustomerOfStaff = (userId) =>{
+    return axios.get(`/user/manager/group/${userId}`)
 }
 
 // *********** Quyền và vai trò của User *******
@@ -159,16 +167,33 @@ export const statisticCustomer = () =>{
     return axios.get('/statistics/customer/status1')
 }
 
+export const statisticAllCustomer = (date) =>{
+    return axios.post('/statistics/customer/all-status', date)
+}
+
+
 export const statisticStaffSuccess = ()=>{
-    return axios.get('/statistics/staff')
+    return axios.post('/statistics/staff')
 }
 
 export const statisticStaffNoProcess = ()=>{
     return axios.get('/statistics/staff1')
 }
 
+export const statisticStaffStatusSuccess = (date)=>{
+    return axios.post('/statistics/staff/status-success',date)
+}
 
-// API của nhân viên
+export const statisticStaffStatus = (date)=>{
+    return axios.post('/statistics/staff/status-4', date)
+}
+
+export const statisticsCustomerOfStaff = (date)=>{
+    return axios.post('/statistics/customerOf/staff1', date)
+}
+
+
+//************* API của nhân viên *********
 
 // Những khách hàng thuộc nhân viên quản lý
 export const getListCustomerStaffManager = () =>{

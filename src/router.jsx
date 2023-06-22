@@ -20,6 +20,8 @@ import DetailCustomerOfStaff from "./component/StaffPage/Table/TableCustomer/Det
 import TableGroupOfStaff from "./component/StaffPage/Table/TableGroup/TableGroup";
 import ListCustomer from "./component/StaffPage/Table/TableGroup/ListCustomer/ListCustomer";
 import StatisticCustomerOfStaff from "./component/StaffPage/Statistic/StatisticCustomer";
+import CustomerOfStaff from "./component/AdminPage/Table/TableStaff/CustomerOfStaff/CustomerOfStaff";
+import GroupCustomerOfStaff from "./component/AdminPage/Table/TableStaff/GroupCustomerOfStaff/GroupCustomerOfStaff";
 
 export const router = createBrowserRouter(
 [
@@ -56,8 +58,17 @@ export const router = createBrowserRouter(
                     {
                         path:'detailstaff/:detailstaffId',
                         element:<DetailStaff/>
-                    }
+                    },
                 ]
+            },
+            {
+                path:'customerofstaff/:customeroftaffId',
+                element: <CustomerOfStaff/>
+            },
+            {
+                path:'groupcustomerofstaff/:groupcustomeroftaffId',
+                // path:'groupcustomerofstaff',
+                element: <GroupCustomerOfStaff/>
             },
             {
                 path:'listrole',

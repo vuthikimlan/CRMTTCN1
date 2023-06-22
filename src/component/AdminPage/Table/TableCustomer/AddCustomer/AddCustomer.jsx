@@ -37,7 +37,7 @@ function AddCustomer({ onSuccess, openModal, data, onOpenChange }) {
 
   const listStaff = {}
   dataStaff.map((e) =>( 
-    listStaff[e.userId] = e.userName
+    listStaff[e.userId] = e.name
   ))
 
   //Ham tao khach hang
@@ -155,7 +155,7 @@ function AddCustomer({ onSuccess, openModal, data, onOpenChange }) {
           <ProFormSelect
             width="md"
             valueEnum={listStaff}
-            name={data?.customerId ? ["user", "userName"] : "user"}
+            name={data?.customerId ? ["user", "name"] : "user"}
             label="Người quản lý"
             placeholder="Người quản lý"
           />

@@ -2,7 +2,7 @@ import axios from "axios";
 import Cookies from "js-cookie";
 
 
-const base_url = "https://9899-2001-ee0-1a25-d51c-d53b-f1b8-e228-4d3e.ngrok-free.app"
+const base_url = "https://302f-2401-d800-9ff2-4c1b-dc46-f5fa-35a1-db71.ngrok-free.app"
 
 const login_path = "/auth/login"
 

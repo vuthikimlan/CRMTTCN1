@@ -1,19 +1,17 @@
-import { Button,  Input,  Space, Table, Tag, Modal, Drawer, Popover } from 'antd';
+import { Button,  Input,  Space, Table, Tag, Modal, Drawer, Popover, Popconfirm, message } from 'antd';
 import {FilterOutlined, CloseOutlined,SolutionOutlined, DeleteOutlined, EditOutlined } from '@ant-design/icons'
 import {  PageContainer } from '@ant-design/pro-components'
 import {  useEffect, useState } from 'react';
 import '../Table.css'
 
-import {  useNavigate } from 'react-router-dom';
-import AddCustomer from './AddCustomer/AddCustomer';
-import DetailCustomer from './Detail/DetailCustomerOfStaff';
-import { delAllCustomer, delCustomer, filterCustomer, getListCustomerStaffManager } from '../../../../services/lead';
-import FilterCustomer from './FilterCustomer';
+import {  useLocation, useNavigate } from 'react-router-dom';
+import AddCustomer from '../../TableCustomer/AddCustomer/AddCustomer';
+import DetailCustomer from '../../TableCustomer/Detail/DetailCustomer';
+import { delAllCustomer, delCustomer, filterCustomer, customerOfStaff, getListUser } from '../../../../../services/lead';
+import FilterCustomer from '../FilterStaff';
 
-// import DetailCustomer from '../../Modal/Detail/DetailCustomer';
-
-function TableCustomerOfStaff(props) {
-  // const location = useLocation()
+function CustomerOfStaff(props) {
+  const location = useLocation()
   const navigate = useNavigate()
   const [openModal, setOpenModal] = useState()
   const [openDrawer, setOpenDrawer] = useState()
@@ -22,7 +20,10 @@ function TableCustomerOfStaff(props) {
   const [dataCustomer, setDataCustomer] = useState([])
   const [currentCustomer, setCurrentCustomer] = useState({})
   const [searchData, setSearchData] = useState()
-  const { confirm } = Modal;
+
+  const customerOfStaffInfor = location.pathname.split('/')
+  
+  const idPath = customerOfStaffInfor[customerOfStaffInfor.length - 1]
 
   const onSelectChange = (newSelectedRowKeys) => {
     setSelectedRowKeys(newSelectedRowKeys);
@@ -33,16 +34,10 @@ function TableCustomerOfStaff(props) {
     onChange: onSelectChange,
   };
 
+  
 
-  const showhowConfirm = () => {
-    confirm({
-      title: 'Xoá khách hàng ',
-      content: 'Việc này sẽ xóa khách hàng được chọn. Bạn có chắc chắn muốn xóa?',
-      onOk: handleDeleteAll,
-      onCancel() {
-        console.log('Cancel');
-      },
-    });
+  const confirm = (selectedRowKeys) => {
+    handleDeleteAll(selectedRowKeys)
   };
 
   const onClose = () =>{
@@ -50,13 +45,12 @@ function TableCustomerOfStaff(props) {
   }
 
   //Hàm lấy thông tin của khách hàng
-  const handleGetCustomer = () =>{
+  const handleGetCustomer = (idPath) =>{
     setLoading(true)
-    getListCustomerStaffManager().then((res) =>{
+    customerOfStaff(idPath).then((res) =>{
       setDataCustomer(res?.data?.data?.items)
-      console.log(res?.data?.data?.items);
-    })
-    .finally(() =>{
+
+    }).finally(() =>{
       setLoading(false)
     })
   }
@@ -80,12 +74,12 @@ function TableCustomerOfStaff(props) {
         setSelectedRowKeys([])
       }
     })
-    setSelectedRowKeys([])
   }
   
   // Hàm tìm kiếm thông tin khách hàng
   const handleSearch = (e) => {
     setSearchData(e.target.value);
+    // console.log(e.target.value);
   };
 
   
@@ -94,6 +88,7 @@ function TableCustomerOfStaff(props) {
     filterCustomer(
       {customerName:values}
     ).then((res) =>{
+      // console.log("res:: ",res)
       if(res.status === 200) {
         setDataCustomer(res?.data?.data?.items)
       }
@@ -114,9 +109,9 @@ function TableCustomerOfStaff(props) {
 
   //sử dụng để gửi yêu cầu API khi trang thay đổi
   useEffect(() =>{
-    handleGetCustomer()
+    handleGetCustomer(idPath)
     setLoading(false)
-  },[])
+  },[idPath])
 
 
   //cột thông tin của bảng
@@ -134,7 +129,10 @@ function TableCustomerOfStaff(props) {
       title: 'Email',
       dataIndex: 'email',
     },
-    
+    {
+      title: 'Nhân viên quản lý',
+      dataIndex:['user', 'name']
+    },
     {
       title: 'Ngày tạo',
       dataIndex:'createdDate'
@@ -161,10 +159,7 @@ function TableCustomerOfStaff(props) {
       title: 'Action',
       key:'action',
       render:(e, record, idx) => 
-      // {
-      //   return(
-      //     console.log('record:',record)
-      //   )
+      
           (
         <Space>
           <Button className='update'
@@ -187,7 +182,7 @@ function TableCustomerOfStaff(props) {
             icon={<SolutionOutlined/>}
             onClick={() =>{
               setOpenDrawer(true)
-              navigate(`/staffpage/customer/detailcustomer/${record.customerId}`)
+              navigate(`/adminpage/customer/detailcustomer/${record.customerId}`)
             }}
           >
           </Button>
@@ -223,12 +218,13 @@ function TableCustomerOfStaff(props) {
           <Popover 
           placement="bottom" 
           content={
-              <FilterCustomer
+            
+            <FilterCustomer
                 onSearch={(values) => {handleFilter(values)}}
-                getCustomer={() =>{
-                  handleGetCustomer()
+                    getCustomer={() =>{
+                    handleGetCustomer()
                 }}
-              />
+            />
             }
             trigger="click"
             >
@@ -270,7 +266,6 @@ function TableCustomerOfStaff(props) {
           </Drawer>
 
         <Table 
-          
           rowKey={"customerId"}
           rowSelection={rowSelection}
           columns={columns} 
@@ -282,21 +277,46 @@ function TableCustomerOfStaff(props) {
 
         <div className='edit' style={{ display: hasSelected ? "block" : "none" }}> 
            <>đã chọn {selectedRowKeys.length}</>
+          <Popconfirm
+            title="Delete the task"
+            description="Are you sure to delete this task?"
+            onConfirm={confirm}
+            onCancel={(e) =>{
+              message.error('Đã Hủy')
+            }}
+            okText="Yes"
+            cancelText="No"
+          >
+            <Button 
+               className='button_edit'
+            >
+              <CloseOutlined />
+              Xoá
+            </Button>
+            
+          </Popconfirm>
+        </div> 
           <Button 
-            className='button_edit'
+            style={{
+              marginRight: 20
+            }}
             onClick={() =>{
-              showhowConfirm();
-
+              navigate(`/adminpage/staff/`)
             }}
           >
-            <CloseOutlined />
-            Xoá
+            Quay lại
           </Button>
-          
-        </div> 
+          <Button 
+            onClick={() =>{
+                navigate(`/adminpage/groupcustomerofstaff/${idPath}`)
+            }}
+          >
+            Danh sách nhóm khách hàng
+          </Button>
         
       </PageContainer>
     </div>
   );
 };
-export default TableCustomerOfStaff
+export default CustomerOfStaff
+;
