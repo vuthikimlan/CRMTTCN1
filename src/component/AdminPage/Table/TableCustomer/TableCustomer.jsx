@@ -1,4 +1,4 @@
-import { Button,  Input,  Space, Table, Tag, Modal, Drawer, Popover, Popconfirm, message } from 'antd';
+import { Button,  Input,  Space, Table, Tag, Modal, Drawer, Popover, } from 'antd';
 import {FilterOutlined, CloseOutlined,SolutionOutlined, DeleteOutlined, EditOutlined } from '@ant-design/icons'
 import {  PageContainer } from '@ant-design/pro-components'
 import {  useEffect, useState } from 'react';
@@ -10,10 +10,8 @@ import DetailCustomer from './Detail/DetailCustomer';
 import { delAllCustomer, delCustomer, filterCustomer, getListCustomer } from '../../../../services/lead';
 import FilterCustomer from './FilterCustomer';
 
-// import DetailCustomer from '../../Modal/Detail/DetailCustomer';
 
 function TableContent(props) {
-  // const location = useLocation()
   const navigate = useNavigate()
   const [openModal, setOpenModal] = useState()
   const [openDrawer, setOpenDrawer] = useState()
@@ -27,18 +25,12 @@ function TableContent(props) {
 
   const onSelectChange = (newSelectedRowKeys) => {
     setSelectedRowKeys(newSelectedRowKeys);
-    console.log('newSelectedRowKeys', newSelectedRowKeys);
   };
   const rowSelection = {
     selectedRowKeys,
     onChange: onSelectChange,
   };
 
-  console.log("abc:: ",selectedRowKeys);
-  // console.log(dataCustomer);
-  
-
-  // console.log(hasSelected);
 
   const showhowConfirm = () => {
     confirm({
@@ -86,7 +78,6 @@ function TableContent(props) {
         setSelectedRowKeys([])
       }
     }).catch((error) => {
-      // Xử lý lỗi khi gọi API xóa khách hàng
       console.error('Lỗi xóa khách hàng:', error);
     });
   }
@@ -94,7 +85,6 @@ function TableContent(props) {
   // Hàm tìm kiếm thông tin khách hàng
   const handleSearch = (e) => {
     setSearchData(e.target.value);
-    // console.log(e.target.value);
   };
 
   
@@ -103,7 +93,6 @@ function TableContent(props) {
     filterCustomer(
       {customerName:values}
     ).then((res) =>{
-      // console.log("res:: ",res)
       if(res.status === 200) {
         setDataCustomer(res?.data?.data?.items)
       }
@@ -203,10 +192,8 @@ function TableContent(props) {
           </Button>
         </Space>
         )
-        // }
 
     }
-    
     
   ];
   return (
@@ -301,9 +288,6 @@ function TableContent(props) {
               <CloseOutlined />
               Xoá
             </Button>
-            
-
-          
         </div> 
         
       </PageContainer>

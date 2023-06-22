@@ -128,14 +128,15 @@ function AddStaff({onSuccess, openModal, data, onOpenChange}) {
             }}
             label="Is Admin" 
           /> */}
-          <ProFormDigit
+          {/* <ProFormDigit
             width="md" 
             name="isSuperAdmin" 
             label="Is Admin" 
-          />
+          /> */}
           <ProFormSelect
             width="md" 
-            name={ data?.userId ?  ['role', 'roleId'] : 'roleId' }
+            // name={ data?.userId ?  ['role', 'roleId'] : 'role' }
+            name='roleId'
             options={dataRole}
             label="Mã vai trò" 
             placeholder="Mã vai trò" 
@@ -147,7 +148,7 @@ function AddStaff({onSuccess, openModal, data, onOpenChange}) {
             label="Mật khẩu" 
             placeholder="Mật khẩu" 
           />
-          {/* <ProFormSwitch
+          <ProFormSwitch
             name='isSuperAdmin'
             label='Is Admin'
             fieldProps={{
@@ -156,7 +157,7 @@ function AddStaff({onSuccess, openModal, data, onOpenChange}) {
               }
               
             }} 
-          /> */}
+          />
           
           
         </ProForm.Group>

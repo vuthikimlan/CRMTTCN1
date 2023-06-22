@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { statisticStaffStatus } from '../../../../services/lead';
 import { Column } from '@ant-design/plots';
 import {  DatePicker } from 'antd';
-import moment from "moment";
 const { RangePicker } = DatePicker;
 
 
@@ -15,7 +14,6 @@ function StatisticStaffStatus () {
     setSelectedDates(dates);
   };
 
-  console.log("Dữ liệu",data);
 
   const handleRevenue =  () => {
     if (selectedDates) {
@@ -67,7 +65,7 @@ function StatisticStaffStatus () {
         >Thống kê nhân viên quản lý khách hàng thành công theo tuần </h1></>
         <RangePicker 
             style={{
-                marginRight: '70%'
+                marginRight: '80%'
             }}
             format="DD/MM/YYYY"
             onChange={handleValue}

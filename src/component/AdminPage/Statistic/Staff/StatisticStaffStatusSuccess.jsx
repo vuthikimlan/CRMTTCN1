@@ -15,7 +15,6 @@ function StatisticStaffStatusSuccess () {
     setSelectedDates(dates);
   };
 
-  console.log("Dữ liệu",data);
 
   const handleRevenue =  () => {
     if (selectedDates) {
@@ -68,7 +67,7 @@ function StatisticStaffStatusSuccess () {
         >Thống kê nhân viên quản lý khách hàng thành công theo tuần </h1></>
         <RangePicker 
             style={{
-                marginRight: '70%'
+                marginRight: '80%'
             }}
             format="DD/MM/YYYY"
             onChange={handleValue}

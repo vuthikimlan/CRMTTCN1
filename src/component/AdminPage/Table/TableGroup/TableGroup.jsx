@@ -3,14 +3,12 @@ import { Button, Table,  Space} from 'antd';
 import { EditOutlined, DeleteOutlined } from '@ant-design/icons'
 import {  PageContainer } from '@ant-design/pro-components'
 import { useEffect,useState } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
 import { delGroup, getAllGroup } from '../../../../services/lead';
 import AddUpdateGroup from './Add_Update/Add_Update';
 
 
 
 function TableGroup(props) {
-
     const [openModal, setOpenModal] = useState()
     const [dataGroup, setDataGroup] = useState([])
     const [currentGroup, setCurrentGroup] = useState([])

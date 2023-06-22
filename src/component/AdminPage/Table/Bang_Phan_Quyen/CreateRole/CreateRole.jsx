@@ -1,13 +1,12 @@
 /* eslint-disable no-lone-blocks */
 import { ModalForm, ProForm, ProFormSelect, ProFormSwitch, ProFormText, ProFormTextArea } from '@ant-design/pro-components';
-import {  Col, Row, message  } from 'antd';
+import {   message  } from 'antd';
 import { createRole, permissionUser } from '../../../../../services/lead';
 import { useEffect, useState } from 'react';
 import "./style.css"
 
 function CreateRole({openModal, onOpenChange}) {
     const [permissions, setPermissions] = useState([]);
-    const [data,setData] = useState({})
     const [switchValue, setSwitchValue] = useState(false)
 
     const handlePermission = () =>{
@@ -24,7 +23,6 @@ function CreateRole({openModal, onOpenChange}) {
       })
 
     }
-    console.log(permissions);
 
   // Hàm tạo role
   const handleCreatRole = (values) =>{

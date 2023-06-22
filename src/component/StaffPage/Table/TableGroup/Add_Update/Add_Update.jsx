@@ -2,14 +2,29 @@
 import {ProForm, 
     ProFormText, 
     ModalForm,
-    ProFormDigit
+    ProFormSelect
   } from '@ant-design/pro-components';
-import { createGroup, updateGroup } from '../../../../../services/lead';
+import { createGroup, updateGroup, getListUser } from '../../../../../services/lead';
 import { message } from 'antd';
+import { useEffect, useState } from 'react';
+
 
 
 
 function AddUpdateGroup({onSuccess, openModal, data, onOpenChange}) {
+  const [dataStaff, setDataStaff] = useState([])
+    
+  const listStaff = {}
+    dataStaff.map((e) =>( 
+      listStaff[e.userId] = e.name
+    ))
+
+    const handleGetStaff = () =>{
+      getListUser().then((res) =>{
+        setDataStaff(res?.data?.data?.items)
+      })
+    }
+  
     //Ham tao khach hang
     const handleCreatGroup = (values) =>{
         createGroup(values).then((res) =>{
@@ -35,6 +50,9 @@ function AddUpdateGroup({onSuccess, openModal, data, onOpenChange}) {
         message.error('Cập nhật thất bại')
         })
     }
+    useEffect(() =>{
+      handleGetStaff()
+      },[])
 return (
 <>
   <ModalForm
@@ -64,11 +82,11 @@ return (
       />  
       
 
-      <ProFormDigit 
+      <ProFormSelect
         width="md" 
-        // name="userId"
-        name={data?.customerGroupId ? ["user", "userId"] : "userId"}
-
+        valueEnum={listStaff}
+        name="userId"
+        // name={data?.customerGroupId ? ["user", "userId"] : "userId"}
         label="Mã người quản lý" 
         placeholder="Mã người quản lý" 
       />

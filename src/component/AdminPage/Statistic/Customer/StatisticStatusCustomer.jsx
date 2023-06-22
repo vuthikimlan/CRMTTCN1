@@ -37,8 +37,8 @@ function StatisticStatusCus () {
   };
   return (
     <>
-      <><h1>Thống kê trạng thái khách hàng theo tháng 5</h1></>
-      <Pie {...config} />;
+      <><h1>Thống kê trạng thái khách hàng theo tháng 6</h1></>
+      <Pie {...config} />
     </>
   );
 };

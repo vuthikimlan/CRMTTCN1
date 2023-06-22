@@ -27,8 +27,6 @@ function StatisticAllStatus () {
         }
       );
 
-      console.log("Start date:", dateFrom);
-      console.log("End date:", dateTo);
     }
   };
   useEffect(() => {
@@ -72,7 +70,7 @@ function StatisticAllStatus () {
             onChange={handleValue}
         />
             
-        <Pie {...config} />;
+        <Pie {...config} />
     </>
   );
 };

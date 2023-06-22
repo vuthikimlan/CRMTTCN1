@@ -24,7 +24,7 @@ function DetailCustomer(data) {
     <>
         <Descriptions layout="vertical"  >     
           <Descriptions.Item label="Mã khách hàng" span={2}>{dataCustomer?.customerId}</Descriptions.Item>
-          <Descriptions.Item label="Name"> {dataCustomer?.customerName} </Descriptions.Item>
+          <Descriptions.Item label="Tên khách hàng"> {dataCustomer?.customerName} </Descriptions.Item>
           <Descriptions.Item label="Ngày tạo" span={2}> {dataCustomer?.createdDate} </Descriptions.Item>
           <Descriptions.Item label="Ngày cập nhật"> {dataCustomer?.updateDate} </Descriptions.Item>
           <Descriptions.Item label="Số điện thoại" span={2}> {dataCustomer?.phone} </Descriptions.Item>

@@ -26,9 +26,6 @@ function AddCustomer({ onSuccess, openModal, data, onOpenChange }) {
       setDataStaff(res?.data?.data?.items)
     })
   }
-  // console.log(dataGroup);
-  // console.log(dataStaff);
-
 
   const valueEnum = {}
   dataGroup.map((e) =>( 
@@ -133,7 +130,8 @@ function AddCustomer({ onSuccess, openModal, data, onOpenChange }) {
           />
           <ProFormSelect
             width="md"
-            name={data?.customerId ? ["status", "statusId"] : "status"}
+            // name={data?.customerId ? ["status", "statusId"] : "status"}
+            name='status'
             valueEnum={{
               1: "Tiềm Năng",
               2: "Thành công",
@@ -148,14 +146,16 @@ function AddCustomer({ onSuccess, openModal, data, onOpenChange }) {
           <ProFormSelect
             width="md"
             valueEnum={valueEnum}
-            name={data?.customerId ? ["group", "customerGroupId"] : "group"}
+            // name={data?.customerId ? ["group", "customerGroupId"] : "group"}
+            name='group'
             label="Nhóm khách hàng"
             placeholder="nhóm"
           />
           <ProFormSelect
             width="md"
             valueEnum={listStaff}
-            name={data?.customerId ? ["user", "name"] : "user"}
+            // name={data?.customerId ? ["user", "name"] : "user"}
+            name="user"
             label="Người quản lý"
             placeholder="Người quản lý"
           />

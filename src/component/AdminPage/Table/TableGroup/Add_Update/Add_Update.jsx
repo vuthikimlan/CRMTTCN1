@@ -3,7 +3,6 @@ import {ProForm,
     ProFormText, 
     ModalForm,
     ProFormSelect,
-    ProFormDigit
   } from '@ant-design/pro-components';
 import { createGroup, getListUser, updateGroup } from '../../../../../services/lead';
 import { message } from 'antd';
@@ -51,10 +50,13 @@ function AddUpdateGroup({onSuccess, openModal, data, onOpenChange}) {
         if(res.status === 200) {
             message.success('Cập nhật thành công')
             onSuccess();
+        }else if (res.data.error.code === 2) {
+          {
+            res.data.error.errorDetailList.map((e) => message.error(e.message));
+          }
         }
-        }).catch((err) =>{
-        message.error('Cập nhật thất bại')
-        })
+        
+      })
     }
 return (
 <>
@@ -83,18 +85,11 @@ return (
         placeholder="Tên nhóm khách hàng" 
       />  
       
-
-      {/* <ProFormDigit 
-        width="md" 
-        name={data?.customerGroupId ? ["user", "userId"] : "userId"}
-
-        label="Người quản lý nhóm" 
-        placeholder="Người quản lý nhóm" 
-      /> */}
       <ProFormSelect
         width="md"
         valueEnum={listStaff}
-        name={data?.customerGroupId ? ["user", "userId"] : "userId"}
+        // name={data?.customerGroupId ? ["user", "userId"] : "userId"}
+        name="userId"
         label="Người quản lý"
         placeholder="Người quản lý"
       />

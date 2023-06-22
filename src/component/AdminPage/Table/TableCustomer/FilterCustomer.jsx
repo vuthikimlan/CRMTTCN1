@@ -15,6 +15,7 @@ function FilterCustomer({onSearch, getCustomer, }) {
     const [address, setAddress] = useState('');
     const [email, setEmail] = useState('')
 
+
     const [statusData, setStatusData] = useState([])
     const handleFilterCustom = (values) => {
         onSearch(values) 
@@ -49,6 +50,7 @@ function FilterCustomer({onSearch, getCustomer, }) {
             <h3>Lọc theo</h3>
             <ProForm
                 onFinish={handleFilterCustom}
+
                 submitter={false}
                 onReset={(e) => {
                     console.log(e);
@@ -125,7 +127,9 @@ function FilterCustomer({onSearch, getCustomer, }) {
                     />
                   
                     <Form.Item>
-                        <Button type="primary" htmlType="submit" >Lọc</Button>
+                        <Button type="primary" htmlType="submit" 
+                          
+                        >Lọc</Button>
                         <Button 
                             style={{backgroundColor:'#fff', 
                                     color:'#000',
@@ -137,6 +141,7 @@ function FilterCustomer({onSearch, getCustomer, }) {
                             onClick={() =>{
                                 handleGetCustomer()
                             }} 
+                            // onCancel={handleCancel}
                             >Hủy</Button>
                     </Form.Item>  
 

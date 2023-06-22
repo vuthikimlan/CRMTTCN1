@@ -26,9 +26,6 @@ function AddCustomer({ onSuccess, openModal, data, onOpenChange }) {
       setDataStaff(res?.data?.data?.items)
     })
   }
-  // console.log(dataGroup);
-  // console.log(dataStaff);
-
 
   const valueEnum = {}
   dataGroup.map((e) =>( 
@@ -59,9 +56,9 @@ function AddCustomer({ onSuccess, openModal, data, onOpenChange }) {
     updateCustomer(data.customerId, values)
       .then((res) => {
         if (res.data.success === true) {
-          message.success("Cập nhật thành công");
+          message.success("Cập nhật khách hàng thành công");
           onSuccess();
-        }else if (res.data.error.code === 2) {
+        } else if (res.data.error.code === 2) {
           {
             res.data.error.errorDetailList.map((e) => message.error(e.message));
           }
@@ -69,8 +66,6 @@ function AddCustomer({ onSuccess, openModal, data, onOpenChange }) {
       })
     };
       
-  
-
     
   useEffect(() =>{
     handleGetGroup()
@@ -133,7 +128,8 @@ function AddCustomer({ onSuccess, openModal, data, onOpenChange }) {
           />
           <ProFormSelect
             width="md"
-            name={data?.customerId ? ["status", "statusId"] : "status"}
+            // name={data?.customerId ? ["status", "statusId"] : "status"}
+            name="status"
             valueEnum={{
               1: "Tiềm Năng",
               2: "Thành công",
@@ -148,14 +144,16 @@ function AddCustomer({ onSuccess, openModal, data, onOpenChange }) {
           <ProFormSelect
             width="md"
             valueEnum={valueEnum}
-            name={data?.customerId ? ["group", "customerGroupId"] : "group"}
+            // name={data?.customerId ? ["group", "customerGroupName"] : "group"}
+            name="group"
             label="Nhóm khách hàng"
             placeholder="nhóm"
           />
           <ProFormSelect
             width="md"
             valueEnum={listStaff}
-            name={data?.customerId ? ["user", "name"] : "user"}
+            // name={data?.customerId ? ["user", "name"] : "user"}
+            name="user"
             label="Người quản lý"
             placeholder="Người quản lý"
           />

@@ -3,17 +3,14 @@ import {FilterOutlined, CloseOutlined,SolutionOutlined, DeleteOutlined, EditOutl
 import {  PageContainer } from '@ant-design/pro-components'
 import {  useEffect, useState } from 'react';
 import '../Table.css'
-
 import {  useNavigate } from 'react-router-dom';
 import AddCustomer from './AddCustomer/AddCustomer';
 import DetailCustomer from './Detail/DetailCustomerOfStaff';
 import { delAllCustomer, delCustomer, filterCustomer, getListCustomerStaffManager } from '../../../../services/lead';
 import FilterCustomer from './FilterCustomer';
 
-// import DetailCustomer from '../../Modal/Detail/DetailCustomer';
 
 function TableCustomerOfStaff(props) {
-  // const location = useLocation()
   const navigate = useNavigate()
   const [openModal, setOpenModal] = useState()
   const [openDrawer, setOpenDrawer] = useState()
@@ -26,7 +23,6 @@ function TableCustomerOfStaff(props) {
 
   const onSelectChange = (newSelectedRowKeys) => {
     setSelectedRowKeys(newSelectedRowKeys);
-    console.log('newSelectedRowKeys', newSelectedRowKeys);
   };
   const rowSelection = {
     selectedRowKeys,
@@ -54,7 +50,6 @@ function TableCustomerOfStaff(props) {
     setLoading(true)
     getListCustomerStaffManager().then((res) =>{
       setDataCustomer(res?.data?.data?.items)
-      console.log(res?.data?.data?.items);
     })
     .finally(() =>{
       setLoading(false)
@@ -74,13 +69,14 @@ function TableCustomerOfStaff(props) {
   // khi select sẽ hiện thị chọn bao nhiêu 
   const hasSelected = selectedRowKeys.length > 0
   const handleDeleteAll = () =>{
-    delAllCustomer({ids: selectedRowKeys}).then((res)=>{
+    delAllCustomer(selectedRowKeys).then((res)=>{
       if(res.data?.success === true) {
         handleGetCustomer();
         setSelectedRowKeys([])
       }
-    })
-    setSelectedRowKeys([])
+    }).catch((error) => {
+      console.error('Lỗi xóa khách hàng:', error);
+    });
   }
   
   // Hàm tìm kiếm thông tin khách hàng

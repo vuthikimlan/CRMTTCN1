@@ -173,7 +173,7 @@ export const statisticAllCustomer = (date) =>{
 
 
 export const statisticStaffSuccess = ()=>{
-    return axios.post('/statistics/staff')
+    return axios.get('/statistics/staff')
 }
 
 export const statisticStaffNoProcess = ()=>{

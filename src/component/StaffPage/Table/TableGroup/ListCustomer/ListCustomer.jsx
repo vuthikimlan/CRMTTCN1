@@ -1,14 +1,15 @@
 import React, { useEffect, useState } from 'react';
-import {  Table, Tag, } from 'antd';
+import {  Button, Table, Tag, } from 'antd';
 import { PageContainer } from '@ant-design/pro-components';
 import { getCustomerStaffManager } from '../../../../../services/lead';
+import { useNavigate } from 'react-router-dom';
 
 
 
 
 function ListCustomer(props) {
     const [dataCustomer, setDataCustomer] = useState()
-
+    const navigte = useNavigate()
     const handleGetCustomer = () =>{
         getCustomerStaffManager().then((res) =>{
             setDataCustomer(res?.data?.data?.items)
@@ -73,6 +74,13 @@ function ListCustomer(props) {
                     columns={columns}
                     dataSource={dataCustomer}
                 />
+                <Button
+                  onClick={() =>{
+                    navigte('/staffpage/listgroup')
+                  }}
+                >
+                  Quay lại
+                </Button>
             </PageContainer>
         </div>
     );
